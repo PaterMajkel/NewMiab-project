@@ -8,6 +8,7 @@ import app.pb.repository.UserGroupRepository;
 import app.pb.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -24,19 +25,22 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Mono<UserGroup> findGroup(Long id) {
-        return Mono.justOrEmpty(groupRepository.findById(id));
+        return Mono.justOrEmpty(groupRepository.findByIdWithUsers(id));
     }
-
     @Override
-    public UserGroup  addUserToGroup(Long groupId, Long userId) {
+    @Transactional
+    public UserGroup addUserToGroup(Long groupId, Long userId) {
         UserGroup group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new RuntimeException("Group not found"));
-
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+        System.out.println("Adding user " + user.getUsername() + " to group " + group.getName());
+        group.getUsers().size();
 
         group.getUsers().add(user);
-        return groupRepository.save(group);
+        UserGroup saved = groupRepository.save(group);
+        System.out.println("Group saved with users count: " + saved.getUsers().size());
+        return saved;
     }
 
     @Override

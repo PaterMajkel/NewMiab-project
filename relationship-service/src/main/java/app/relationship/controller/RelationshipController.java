@@ -26,7 +26,8 @@ public class RelationshipController {
         return service.save(relationship);
     }
 
-    @GetMapping
+    @GetMapping("/filter-by-ids")
+
     public List<Relationship> getWhereUserInList(@RequestParam List<Long> userIds) {
         return service.getWhere(userIds);
     }

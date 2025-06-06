@@ -76,7 +76,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.example.UserGroupManagementServiceApplication</mainClass>
+                    <mainClass>app.pb.UserGroupManagementServiceApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

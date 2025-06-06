@@ -18,7 +18,6 @@ public class User {
     private String password;
     private String email;
 
-    @ManyToMany
-    @JsonIgnoreProperties("users")
+    @ManyToMany(mappedBy = "users")
     private Set<UserGroup> groups = new HashSet<>();
 }

@@ -1,9 +1,11 @@
 server:
-  port: 8083
+  port: 8080
+  error:
+    include-stacktrace: always
 
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/genealogy
+    url: jdbc:postgresql://postgres:5432/usersdb
     username: user
     password: pass
   jpa:

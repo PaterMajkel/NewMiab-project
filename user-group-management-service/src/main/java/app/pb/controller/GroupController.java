@@ -30,15 +30,17 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public Mono<UserGroup> getGroup(@PathVariable Long id) {
-        return groupService.findGroup(id);
+    public Mono<ResponseEntity<GroupDto>> getGroup(@PathVariable Long id) {
+        return groupService.findGroup(id)
+                .map(group -> ResponseEntity.ok(new GroupDto(group)))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
-
 
     @PostMapping("/{groupId}/users/{userId}")
     public Mono<ResponseEntity<GroupDto>> addUserToGroup(@PathVariable Long groupId, @PathVariable Long userId) {
         return Mono.fromCallable(() -> groupService.addUserToGroup(groupId, userId))
                 .map(group -> ResponseEntity.ok(new GroupDto(group)))
+                .doOnError(e -> System.err.println("Error adding user to group: " + e.getMessage()))
                 .onErrorResume(e -> Mono.just(ResponseEntity.badRequest().build()));
     }
 
@@ -46,7 +48,11 @@ public class GroupController {
     public Mono<ResponseEntity<GroupDto>> removeUserFromGroup(@PathVariable Long groupId, @PathVariable Long userId) {
         return Mono.fromCallable(() -> groupService.removeUserFromGroup(groupId, userId))
                 .map(group -> ResponseEntity.ok(new GroupDto(group)))
-                .onErrorResume(e -> Mono.just(ResponseEntity.badRequest().build()));
+                .onErrorResume(e -> {
+                    e.printStackTrace(); // lub log.error(...)
+
+                    return Mono.just(ResponseEntity.badRequest().build());
+                });
     }
 
     @GetMapping("/DrawGroup/{groupId}")
