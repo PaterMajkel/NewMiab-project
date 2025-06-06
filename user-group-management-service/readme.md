@@ -1,7 +1,9 @@
-Projekt realizuje zarządzanie użytkownikami i grupami poprzez REST API oparte na Spring Boot. Dane użytkowników i grup są przechowywane w bazie PostgreSQL, z wykorzystaniem ORM (Hibernate). Programowanie reaktywne (Spring WebFlux) zapewnia obsługę asynchronicznych operacji na danych. Cała aplikacja działa w kontenerach Docker, a logowanie metod serwisowych jest realizowane za pomocą aspektów AOP.
+Projekt przygotowany przez Michał Bołtowicz, Joanna Adamczyk, Mateusz Adamczyk, Mateusz Sekściński
+
+P rojekt realizuje zarządzanie użytkownikami i grupami poprzez REST API oparte na Spring Boot. Dane użytkowników i grup są przechowywane w bazie PostgreSQL, z wykorzystaniem ORM (Hibernate). Programowanie reaktywne (Spring WebFlux) zapewnia obsługę asynchronicznych operacji na danych. Cała aplikacja działa w kontenerach Docker, a logowanie metod serwisowych jest realizowane za pomocą aspektów AOP.
 2. Budowanie projektu
 
-W katalogu głównym projektu uruchom:
+W kata[resources](src/main/resources)logu głównym projektu uruchom:
 
 ```
 mvn clean install
