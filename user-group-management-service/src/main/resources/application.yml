@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/usersdb
+    username: user
+    password: pass
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
